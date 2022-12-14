@@ -11,58 +11,63 @@ que ha generado otro usuario y genera el número K=Yx=rxy.
 #include <time.h>
 #include <math.h>
 
+/**
+ * @brief
+ *
+ * @param b
+ * @param e
+ * @param p
+ * @return int
+ */
 // Funcion `b^e mod p`
 int mod_exp(int b, int e, int p)
 {
-  int i, x, power;
-  x = 1;
-  power = b % p;
+   int i, x, power;
+   x = 1;
+   power = b % p;
 
-  for (i = 0; i < 8 * sizeof(int); i++)
-  {
-    if (e & 1)
-    {
-      x = (x * power) % p;
-    }
-    e >>= 1;
-    power = (power * power) % p;
-  }
+   for (i = 0; i < 8 * sizeof(int); i++)
+   {
+      if (e & 1)
+      {
+         x = (x * power) % p;
+      }
+      e >>= 1;
+      power = (power * power) % p;
+   }
 
-  return x;
+   return x;
 }
 
 // Programa C para demostrar el algoritmo de Diffie-Hellman
 int main()
 {
-  int p = 761;
-  int r = 6;
-  srand(time(NULL));
+   int p = 761;
+   int r = 6;
+   srand(time(NULL));
 
-  // Numero aleatorio
-  int numeroRandom;
+   // Numero aleatorio (Secreto)
+   int numeroRandom;
 
-  // X = Clave pública nuestra
-  // Y = Clave pública que nos llega
-  int X, Y;
+   // X = Clave pública nuestra
+   // Y = Clave pública que nos llega
+   int X, Y;
 
-  // Calculabmos numero aleatorio
-  numeroRandom = rand();
+   // Calculabmos numero aleatorio
+   numeroRandom = rand();
 
-  // Calculamos la X
-  X = mod_exp(r, numeroRandom, p);
+   // Calculamos la X
+   X = mod_exp(r, numeroRandom, p);
 
-  printf("X:%d\n", X);
+   printf("X:%d\n", X);
 
-  // Pedimos que nos introduzcan su clave pública
-  printf("Introduce el numero Y generado por otro usuario: ");
-  scanf("%d", &Y);
+   // Pedimos que nos introduzcan su clave pública
+   printf("Introduce el numero Y generado por otro usuario: ");
+   scanf("%d", &Y);
 
-  // Encontrar la clave privada
-  int clave = mod_exp(Y, numeroRandom, p);
+   // Encontrar la clave privada
+   int clave = mod_exp(Y, numeroRandom, p);
 
-  // int clave2 = mod_exp(X, 734, p);
-
-  printf("Clave privada es: %d\n", clave);
-  // printf("Clave privada2 es: %d\n", clave2);
-  return 0;
+   printf("Clave privada es: %d\n", clave);
+   return 0;
 }

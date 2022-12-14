@@ -1,0 +1,7 @@
+Diffie_Hellman.exe
+.vscode/launch.json
+build/Debug/Diffie_Hellman.o
+build/Debug/outDebug.exe
+build/Debug/num2.o
+.vscode/settings.json
+.vscode/c_cpp_properties.json
